@@ -7,14 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:dev:open": "concurrently \"cross-env NODE_ENV=test next build && cross-env NODE_ENV=test next start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=test cypress open\"",
-    "test:run": "concurrently --kill-others --success first \"cross-env NODE_ENV=test next build && cross-env NODE_ENV=test next start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=test cypress run --headless\"",
+    "test:dev:open": "concurrently \"cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true next dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true cypress open\"",
+    "test:run": "concurrently --kill-others --success first \"cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true next dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true cypress run --headless\"",
+    "test:run:build": "concurrently --kill-others --success first \"cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true next build && cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true next start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=test NEXT_PUBLIC_TEST_MODE=true cypress run --headless\"",
     "prepare": "husky"
   },
   "dependencies": {
     "@sanity/client": "^6.4.4",
     "@sanity/image-url": "^1.0.2",
     "@stripe/stripe-js": "^2.0.0",
+    "better-sqlite3": "^12.4.1",
     "canvas-confetti": "^1.6.0",
     "mysql2": "^3.11.3",
     "next": "^13.4.13",
