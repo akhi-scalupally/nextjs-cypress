@@ -32,6 +32,9 @@ jobs:
         run: |
           printf "%s" "${{ secrets.DOTENV_DEV }}" > .env
           printf "%s" "${{ secrets.DOTENV_TEST }}" > .env.test
+          # If your app expects `.env.testing`, use this instead:
+          # printf "%s" "${{ secrets.DOTENV_TEST }}" > .env.testing
+          # cp .env.testing .env
 
       - name: Install dependencies
         run: npm ci
@@ -40,6 +43,7 @@ jobs:
       - name: Run Cypress (headless)
         uses: cypress-io/github-action@v6
         with:
+          install: false          # prevent auto pnpm/yarn detection
           command: npm run test:run
 
       # helpful on failures
