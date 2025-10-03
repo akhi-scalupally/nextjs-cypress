@@ -32,9 +32,6 @@ jobs:
         run: |
           printf "%s" "${{ secrets.DOTENV_DEV }}" > .env
           printf "%s" "${{ secrets.DOTENV_TEST }}" > .env.test
-          # If your app expects `.env.testing`, use this instead:
-          # printf "%s" "${{ secrets.DOTENV_TEST }}" > .env.testing
-          # cp .env.testing .env
 
       - name: Install dependencies
         run: npm ci
