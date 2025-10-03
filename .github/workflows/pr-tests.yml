@@ -2,7 +2,7 @@ name: PR Checks • Cypress
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     types: [opened, synchronize, reopened, ready_for_review]
 
 concurrency:
