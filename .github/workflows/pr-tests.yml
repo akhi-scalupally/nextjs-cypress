@@ -1,0 +1,54 @@
+name: PR Checks • Cypress
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  cypress:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Create env files (from secrets, no log output)
+        run: |
+          printf "%s" "${{ secrets.DOTENV_DEV }}" > .env
+          printf "%s" "${{ secrets.DOTENV_TEST }}" > .env.test
+
+      - name: Install dependencies
+        run: npm ci
+
+      # your test:run already does build + start + cypress via concurrently/wait-on
+      - name: Run Cypress (headless)
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run test:run
+
+      # helpful on failures
+      - name: Upload Cypress artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
+          if-no-files-found: ignore
