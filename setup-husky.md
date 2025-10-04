@@ -39,7 +39,7 @@ git commit --no-verify -m "your commit message"
 
 Or disable husky entirely:
 
-<!-- ```bash
+```bash
 HUSKY=0 -->
 ```
 
