@@ -35,3 +35,15 @@
 //     }
 //   }
 // }
+
+beforeEach(() => {
+  // Only clear SQLite test data in test environment
+  if (process.env.NODE_ENV === 'test') {
+    try {
+      const { clearTestData } = require('../../lib/db-sqlite');
+      clearTestData();
+    } catch (error) {
+      console.error('Failed to clear test data:', error);
+    }
+  }
+});

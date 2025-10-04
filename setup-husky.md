@@ -39,8 +39,8 @@ git commit --no-verify -m "your commit message"
 
 Or disable husky entirely:
 
-```bash
-HUSKY=0
+<!-- ```bash
+HUSKY=0 -->
 ```
 
 ## Configuration Files

@@ -9,6 +9,7 @@
 
 # testing
 /coverage
+/cypress/test-db.sqlite
 
 # next.js
 /.next/
