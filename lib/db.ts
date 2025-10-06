@@ -5,8 +5,7 @@ let hasLoggedConnection = false;
 
 export function getPool() {
   // Use SQLite for testing, MySQL for development/production
-  const isTestEnv = process.env.NODE_ENV === 'test' || 
-                   process.env.NEXT_PUBLIC_TEST_MODE === 'true'
+  const isTestEnv = process.env.NEXT_PUBLIC_TEST_MODE === 'true'
                    
   console.log('🌍 Environment check:');
   console.log('   NODE_ENV:', process.env.NODE_ENV);
@@ -104,8 +103,7 @@ function getSqlitePool() {
 
 export async function ensureAddressTable() {
   // Use the same environment detection logic
-  const isTestEnv = process.env.NODE_ENV === 'test' || 
-                   process.env.NEXT_PUBLIC_TEST_MODE === 'true'
+  const isTestEnv = process.env.NEXT_PUBLIC_TEST_MODE === 'true'
                    
   if (isTestEnv) {
     // SQLite is synchronous, so we don't need await
