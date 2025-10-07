@@ -94,11 +94,11 @@ The project includes the following npm scripts for development and testing:
 
     "lint": "next lint",
 
-    "test:dev:open": "concurrently \\"cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true next dev\\" \\"wait-on http://localhost:3000 && cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true cypress open\\"",
+    "test:dev:open": "env-cmd -f .env.test concurrently \"npm run build && npm run start\" \"wait-on http://localhost:3000 && cypress open\"",
 
-    "test:run": "concurrently \--kill-others \--success first \\"cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true next dev\\" \\"wait-on http://localhost:3000 && cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true cypress run \--headless\\"",
-
-    "test:run:build": "concurrently \--kill-others \--success first \\"cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true next build && cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true next start\\" \\"wait-on http://localhost:3000 && cross-env NODE\_ENV=test NEXT\_PUBLIC\_TEST\_MODE=true cypress run \--headless\\"",
+    "test:run": "env-cmd -f .env.test concurrently --kill-others --success first \"npm run build && npm run start\" \"wait-on http://localhost:3000 && cypress run --headless\"",
+    
+    "test:run:build": "env-cmd -f .env.test concurrently --kill-others --success first \"npm run build && npm run start\" \"wait-on http://localhost:3000 && cypress run --headless\"",
 
     "prepare": "husky"
 
