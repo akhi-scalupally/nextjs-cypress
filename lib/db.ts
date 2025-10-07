@@ -115,7 +115,7 @@ export async function ensureAddressTable() {
       CREATE TABLE IF NOT EXISTS address (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        description VARCHAR(255) NOT NULL,
+        description VARCHAR(255) NULL,
         line1 VARCHAR(255) NOT NULL,
         line2 VARCHAR(255) NULL,
         city VARCHAR(120) NOT NULL,
