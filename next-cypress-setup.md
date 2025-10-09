@@ -925,6 +925,182 @@ To enforce the workflow, set up branch protection rules:
 
 ---
 
+## **8\. Mobile Viewport Configuration and Responsive Testing**
+
+This section covers the comprehensive mobile viewport configuration, responsive design implementation, and cross-device testing strategy used in the project.
+
+### **HTML Viewport Meta Tag**
+
+The project includes proper mobile viewport configuration in the root layout:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+**Location**: `app/layout.tsx` (line 17)
+
+**Purpose**: Ensures proper mobile rendering and prevents zoom issues on mobile devices
+
+### **Cypress Viewport Testing Configuration**
+
+The project implements comprehensive viewport testing through custom Cypress commands:
+
+#### **Viewport Definitions**
+
+*Screenshot of viewport definitions will be added here*
+
+**Location**: `cypress/support/commands.ts` (lines 29-50)
+
+#### **Custom Cypress Commands**
+
+1. **setViewport(device)** - Sets viewport size for testing
+2. **testAcrossViewports(testFn, devices)** - Runs tests across multiple devices
+3. **checkResponsiveElement(selector, expectedBehavior)** - Validates responsive behavior
+
+### **Responsive Design Implementation**
+
+#### **Tailwind CSS Responsive Classes**
+
+The project uses Tailwind CSS for responsive design with mobile-first approach:
+
+```tsx
+// Responsive margins
+<main className="lg:mx-20 sm:mx-8 mx-4 mt-6">
+
+// Responsive text sizes
+<h1 className="headTitle px-2 py-2 sm:text-3xl text-2xl">
+
+// Responsive grid layout
+<section className="mt-4 grid gap-4 grid-cols-1 lg:grid-cols-2">
+
+// Responsive form grid
+<div className="grid grid-cols-2 gap-3">
+
+// Responsive address item layout
+<div className="ring-1 ring-lightDim rounded p-3 grid sm:grid-cols-6 grid-cols-2 gap-2 items-start">
+```
+
+#### **Breakpoint Strategy**
+
+- **Mobile**: Default (no prefix) - 0px and up
+- **Small**: `sm:` - 640px and up
+- **Large**: `lg:` - 1024px and up
+
+### **Cross-Device Testing Implementation**
+
+#### **Test Structure**
+
+All tests automatically run across multiple viewports:
+
+```typescript
+cy.testAcrossViewports(() => {
+  // Test logic here
+  cy.get('[data-cy="address-form"]').should('be.visible');
+  cy.get('[data-cy="af-name"]').type('John Doe');
+  cy.get('[data-cy="af-submit"]').click();
+}, ['mobile', 'tablet', 'desktop']);
+```
+
+#### **Responsive Element Validation**
+
+```typescript
+cy.checkResponsiveElement('[data-cy="address-form"]', {
+  mobile: { visible: true },
+  tablet: { visible: true },
+  desktop: { visible: true }
+});
+```
+
+### **Mobile-Specific Features**
+
+#### **Touch-Friendly Design**
+
+- **Button Sizing**: Minimum 44px touch targets
+- **Form Inputs**: Adequate spacing and sizing for mobile interaction
+- **Navigation**: Responsive navbar with mobile-friendly layout
+
+#### **Performance Optimizations**
+
+- **Image Optimization**: Responsive images with appropriate sizing
+- **CSS Optimization**: Mobile-first CSS with efficient media queries
+- **JavaScript**: Conditional loading for mobile-specific features
+
+### **Testing Across Devices**
+
+#### **Supported Devices**
+
+1. **Mobile Devices**:
+   - iPhone SE (375x667)
+   - iPhone 12 (390x844)
+   - Samsung Galaxy (360x640)
+
+2. **Tablet Devices**:
+   - iPad (768x1024)
+   - iPad Pro (1024x1366)
+
+3. **Desktop Devices**:
+   - Standard Desktop (1280x720)
+   - Large Desktop (1920x1080)
+
+#### **Test Coverage**
+
+- ✅ **Form Interactions**: Touch-friendly form inputs and buttons
+- ✅ **Navigation**: Responsive navigation menu
+- ✅ **Layout**: Grid and flexbox responsiveness
+- ✅ **Typography**: Scalable text and headings
+- ✅ **Images**: Responsive image sizing
+- ✅ **Touch Events**: Mobile-specific touch interactions
+
+### **Development Workflow**
+
+#### **Testing Commands**
+
+```bash
+# Test across all viewports
+npm run test:dev:open
+
+# Test specific viewport
+cy.setViewport('mobile')
+
+# Test responsive elements
+cy.checkResponsiveElement(selector, expectedBehavior)
+```
+
+#### **Debugging Mobile Issues**
+
+1. **Browser DevTools**: Use device emulation for testing
+2. **Cypress Viewport**: Test specific device dimensions
+3. **Real Device Testing**: Test on actual mobile devices
+4. **Network Throttling**: Test performance on slower connections
+
+### **Best Practices**
+
+#### **Mobile-First Design**
+
+1. **Start with Mobile**: Design for mobile first, then enhance for larger screens
+2. **Progressive Enhancement**: Add features for larger screens
+3. **Touch-Friendly**: Ensure all interactive elements are touch-friendly
+4. **Performance**: Optimize for mobile performance and data usage
+
+#### **Responsive Testing**
+
+1. **Cross-Device Testing**: Test on multiple devices and screen sizes
+2. **Orientation Testing**: Test both portrait and landscape orientations
+3. **Performance Testing**: Test performance across different devices
+4. **Accessibility Testing**: Ensure mobile accessibility compliance
+
+
+### **Benefits of This Approach**
+
+1. **Comprehensive Testing**: Tests run across all major device types
+2. **Consistent Experience**: Ensures consistent user experience across devices
+3. **Performance**: Optimized for mobile performance and usability
+4. **Accessibility**: Mobile accessibility compliance
+5. **Future-Proof**: Easily add new device types and screen sizes
+6. **Developer Experience**: Simple commands for testing responsive behavior
+
+---
+
 ## **Repository Information**
 
 This project is available on GitHub at: [https://github.com/akhi-scalupally/nextjs-cypress](https://github.com/akhi-scalupally/nextjs-cypress)
