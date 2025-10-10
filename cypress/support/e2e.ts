@@ -15,3 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
+// Global test data cleanup is now handled in cypress.config.ts using before:run and after:run hooks
+// This ensures proper execution timing and better integration with Cypress lifecycle
